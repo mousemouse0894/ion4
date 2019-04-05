@@ -10,18 +10,42 @@
 </ion-header>
 
 <ion-content>
-  <ion-list>
-    <ion-item *ngFor="let item of items">
-      <ion-icon [name]="item.icon" slot="start"></ion-icon>
-      {{item.title}}
-      <div class="item-note" slot="end">
-        {{item.note}}
-      </div>
-    </ion-item>
-  </ion-list>
-  <!--
-    <div *ngIf="selectedItem" padding>
-      You navigated here from <b>{{selectedItem.title }}</b>
+  <div class="list-layout">
+    <div
+      style="overflow: auto;max-height: 50vh;width: 50vw;"
+      *ngIf="dataLogs.length > 0"
+    >
+      <div
+        style="position: absolute; z-index: 1000;right: 20px;bottom: 20px;"
+      ></div>
+      <table class="table table-dark">
+        <thead>
+          <tr>
+            <th scope="col">No</th>
+            <th scope="col">key</th>
+            <th scope="col">TMP</th>
+            <th scope="col">HU</th>
+            <th scope="col">Edit</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let i of dataLogs; let x = index">
+            <td style="vertical-align: middle;">{{ x + 1 }}</td>
+            <td style="vertical-align: middle;">{{ i.key }}</td>
+            <td style="vertical-align: middle;">{{ i.payload.Temperature }}</td>
+            <td style="vertical-align: middle;">{{ i.payload.Humididy }}</td>
+            <td style="vertical-align: middle;">
+              <button
+                type="button"
+                class="btn btn-success btn-sm"
+                (click)="onDel(i.key)"
+              >
+                ลบ
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
     </div>
-  -->
+  </div>
 </ion-content>
