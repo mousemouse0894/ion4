@@ -10,5 +10,19 @@
 </ion-header>
 
 <ion-content>
-  BeWLnW
+  <br>
+  <br>
+  <div *ngIf="DHT" class="text-center">
+    <div>
+    <ngx-gauge type="arch" [value]="DHT.Temparature" label="Temparature" append="°C"
+      [thick]="screenDisplay.height" cap="round" [thresholds]="thresholdConfig" [size]="screenDisplay.width">
+    </ngx-gauge>
+</div>  
+<div>
+    <ngx-gauge type="arch" [value]="DHT.Humidity" label="Humidity" append="°C"
+      foregroundColor="rgba(136, 255, 0, 0.945)" [thick]="screenDisplay.height" cap="round"  [size]="screenDisplay.width">
+    </ngx-gauge>
+  </div>
+  <ion-toggle color="secondary" [(ngModel)]="swtu" (ionChange)="sw_onchange()" style="--background: green; --handle-background: green;	"></ion-toggle>
+ </div>
 </ion-content>

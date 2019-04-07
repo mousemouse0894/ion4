@@ -9,3 +9,12 @@
 @import '~@ionic/angular/css/text-alignment.css';
 @import '~@ionic/angular/css/text-transformation.css';
 @import '~@ionic/angular/css/flex-utils.css';
+
+.link_active{
+    --color: aqua !important;
+    --background: pink !important;
+    font-weight: bold !important;
+    ion-icon{
+        color: brown !important;
+    }
+}

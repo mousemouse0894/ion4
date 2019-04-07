@@ -4,7 +4,7 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'list',
+    redirectTo: 'home',
     pathMatch: 'full'
   },
   {
@@ -14,11 +14,7 @@ const routes: Routes = [
   {
     path: 'list',
     loadChildren: './list/list.module#ListPageModule'
-  },
-  { path: 'listupdate/:data', 
-    loadChildren: './listupdate/listupdate.module#ListupdatePageModule' 
   }
-
 ];
 
 @NgModule({

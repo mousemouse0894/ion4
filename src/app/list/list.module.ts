@@ -15,7 +15,11 @@ import { ListPage } from './list.page';
       {
         path: '',
         component: ListPage
+      },
+      { path: 'listupdate/:data', 
+        loadChildren: '../listupdate/listupdate.module#ListupdatePageModule' 
       }
+    
     ])
   ],
   declarations: [ListPage]

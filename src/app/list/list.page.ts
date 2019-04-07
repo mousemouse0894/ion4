@@ -1,5 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { AngularFireDatabase } from "@angular/fire/database";
+import { MyserviceService } from '../services/myservice.service';
+import { AlertController } from '@ionic/angular';
 
 
 export interface data{
@@ -18,20 +20,40 @@ export class ListPage implements OnInit {
   public searchLogs: string = "";
   public datalogsearch: Array<any> = [];
   
-  constructor(public fb: AngularFireDatabase) {
+  constructor(public fb: AngularFireDatabase,public fa:MyserviceService,public alertController: AlertController) {
 
   }
 
 
   public onDel(key: string) {
-    if (confirm("ยืนยันการลบข้อมูล")) {
+
+    this.fa.presentAlertConfirm("ทดสอบ").then(async (value:boolean)=>{
       this.dataLogs = [];
       this.fb.object("/logs/" + key).remove();
       //this.fb.list("/logs").remove(key);
-    }
+      const alert = await this.alertController.create({
+        header: 'Alert',
+        message: 'ลบเรียบร้อย',
+        buttons: ['OK']
+      });
+  
+      await alert.present();
+       }).catch(async (reason)=>{
+        const alert = await this.alertController.create({
+          header: 'Alert',
+          message: 'ยกเลิกเเล้ว',
+          buttons: ['OK']
+        });
+    
+        await alert.present();
+       });
+   
+     
+    
   }
 
   ngOnInit() {
+    
     this.fb
       .list("/logs")
       .snapshotChanges()
@@ -43,7 +65,7 @@ export class ListPage implements OnInit {
             payload: element.payload.val()
           });
         });
-        this.onsearch("");
+        this.onsearch(this.searchLogs);
       });
   }
 
