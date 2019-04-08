@@ -1,3 +1,4 @@
+import { MicrogearService } from './services/microgear.service';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouteReuseStrategy } from '@angular/router';
@@ -36,7 +37,7 @@ export const firebaseConfig = {
     StatusBar,
     SplashScreen,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
-    AngularFireDatabase,MyserviceService
+    AngularFireDatabase,MyserviceService,MicrogearService
   ],
   bootstrap: [AppComponent]
 })

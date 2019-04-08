@@ -47,8 +47,6 @@ export class ListPage implements OnInit {
     
         await alert.present();
        });
-   
-     
     
   }
 

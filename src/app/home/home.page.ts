@@ -1,6 +1,7 @@
 import { Component, OnInit, OnDestroy } from "@angular/core";
 import { AngularFireDatabase } from "@angular/fire/database";
 import { MyserviceService } from '../services/myservice.service';
+import { MicrogearService } from '../services/microgear.service';
 
 export interface Screen{
   height:Number;
@@ -26,13 +27,26 @@ export class HomePage implements OnInit,OnDestroy {
     width:0
   };
   public swtu: boolean = false;
-  constructor(public fb: AngularFireDatabase,public se: MyserviceService) {
- 
+  constructor(public fb: AngularFireDatabase,public se: MyserviceService,public mi:MicrogearService) {
+    
 
   }
 
 
   ngOnInit() {
+    //console.log(this.mi.microgear())
+    let microgear = this.mi.microgear();
+    microgear.on('connected', ()=> {
+       microgear.subscribe("/ionic/+")
+       microgear.subscribe("/arduino/+")
+    });
+    microgear.on('message',(topic: any,msg:any) => {
+     /* if(topic.split("/")[2]!="ionic"){
+        console.log(topic + " =>  " + msg)
+      }*/
+      console.log(topic + " =>  " + msg)
+    });
+    //----------------------------------------------------------------------
     this.fb
       .object("/DHT")
       .valueChanges()
@@ -65,7 +79,12 @@ export class HomePage implements OnInit,OnDestroy {
  }
   public sw_onchange() {
    // console.log(this.swtu);
-    this.fb.object("/sw_1").set(this.swtu);
+   let microgear = this.mi.microgear()
+   
+    this.fb.object("/sw_1").set(this.swtu).then(()=>{
+      microgear.publish("/ionic/sw1",this.swtu+"");
+    })
+
   }
 }
 
